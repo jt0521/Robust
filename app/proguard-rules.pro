@@ -22,4 +22,6 @@
 -ignorewarnings
 -dontwarn android.support.v4.**,**CompatHoneycomb,com.tenpay.android.**
 -optimizations !class/unboxing/enum,!code/simplification/arithmetic
-
+-keepclassmembers class **{
+public static com.meituan.robust.ChangeQuickRedirect *;
+}
