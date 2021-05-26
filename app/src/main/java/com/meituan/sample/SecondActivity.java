@@ -14,8 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.meituan.robust.patch.annotaion.Add;
+import com.meituan.robust.patch.RobustModify;
 import com.meituan.robust.patch.annotaion.Modify;
+import com.meituan.robust.patch.annotaion.Add;
 
 import java.lang.reflect.Field;
 
@@ -24,6 +25,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     protected static String name = "SecondActivity";
     private ListView listView;
     private String[] multiArr = {"列表1", "列表2", "列表3", "列表4"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +34,12 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         listView = (ListView) findViewById(R.id.listview);
         TextView textView = (TextView) findViewById(R.id.secondtext);
         textView.setOnClickListener(v -> {
-//                    RobustModify.modify();
-                    Log.d("robust", " onclick  in Listener");
+            //RobustModify.modify();
+            Toast.makeText(this, "点我 点我", Toast.LENGTH_SHORT).show();
                 }
         );
         //change text on the  SecondActivity
-        textView.setText(getTextInfo());
+        textView.setText("info title: " + getTextInfo());
 
         //test array
         BaseAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, multiArr);
@@ -45,16 +47,8 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         printLog("robust", new String[][]{new String[]{"1", "2", "3"}, new String[]{"4", "5", "6"}});
     }
 
-//    @Modify
     public String getTextInfo() {
-        getArray();
-        return "error occur " ;
-//        return "error fixed";
-    }
-
-    @Add
-    public String[] getArray() {
-       return new String[]{"hello","world"};
+        return "error fixed success ";
     }
 
     @Override

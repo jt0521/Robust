@@ -6,18 +6,17 @@ buildscript {
         jcenter()
         google()
         maven {url"https://jitpack.io"}
+        maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-        classpath 'com.meituan.robust:gradle-plugin:0.4.96'
-        classpath 'com.meituan.robust:auto-patch-plugin:0.4.96'
+//        classpath 'com.meituan.robust:gradle-plugin:0.4.96'
+        classpath 'android.com.plugin:hotfix:0.0.14'
+//        classpath 'com.meituan.robust:auto-patch-plugin:0.4.99'
+        classpath 'android.com.plugin:autopatch:0.0.3'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
     }
-    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -31,6 +30,7 @@ allprojects {
         }
         maven {url"https://jitpack.io"}
         jcenter()
+        maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
     }
     tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
 }

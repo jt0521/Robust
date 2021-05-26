@@ -2,3 +2,18 @@ apply plugin: 'java'
 apply from: '../gradle_mvn_push.gradle'
 sourceCompatibility= 1.8
 targetCompatibility= 1.8
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo')) // 插件的输出路径
+            //repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
+            //   authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
+            //}
+
+            pom.groupId = 'android.com.plugin'
+            pom.artifactId = 'autopatchbase'
+            pom.version = '0.0.1'
+        }
+    }
+}

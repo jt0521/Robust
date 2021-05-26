@@ -1,7 +1,14 @@
 package com.meituan.sample;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.meituan.robust.PatchExecutor;
+import com.meituan.robust.patch.RobustModify;
+import com.meituan.robust.patch.annotaion.Add;
+import com.meituan.sample.patch.PatchManipulateImp;
+
 /**
  * For users of Robust you may only to use MainActivity or SecondActivity,other classes are used for test.<br>
  * <br>
@@ -43,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         patch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isGrantSDCardReadPermission()) {
+                if (checkWriteSDCardPermission(MainActivity.this)) {
                     runRobust();
                 } else {
-                    requestPermission();
+                    requestWriteSDCardPermission(MainActivity.this, 1);
                 }
             }
         });
@@ -54,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump_second_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RobustModify.modify();
+                show();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 startActivity(intent);
             }
@@ -62,10 +75,16 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "arrived in ", Toast.LENGTH_SHORT).show();
+                RobustModify.modify();
+                Toast.makeText(MainActivity.this, "arrived 舒服点搜房电视里发生", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    @Add
+    private void show() {
+        Toast.makeText(MainActivity.this, "=========== ", Toast.LENGTH_SHORT).show();
     }
 
     private boolean isGrantSDCardReadPermission() {
@@ -101,5 +120,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void runRobust() {
         new PatchExecutor(getApplicationContext(), new PatchManipulateImp(), new RobustCallBackSample()).start();
+    }
+
+    //请求读写外部存储
+    public static void requestWriteSDCardPermission(Activity activity, int requestCode) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // 先判断有没有权限
+            if (!Environment.isExternalStorageManager()) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + activity.getPackageName()));
+                activity.startActivityForResult(intent, requestCode);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, requestCode);
+        }
+    }
+
+    //检查是否允许读写外部存储
+    public static boolean checkWriteSDCardPermission(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+            if (activity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+            return true;
+        }
+        return true;
     }
 }
