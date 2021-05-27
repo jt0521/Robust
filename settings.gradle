@@ -1,3 +1,4 @@
+include ':login'
 include ':app'
 include ':autopatchbase'
 include ':gradle-plugin'

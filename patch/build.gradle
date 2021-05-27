@@ -16,8 +16,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     packagingOptions {
         exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
@@ -30,8 +30,23 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 dependencies {
-//    compile 'com.meituan.robust:autopatchbase:' + VERSION_NAME
-    api project(':autopatchbase')
+    implementation 'android.com.plugin:autopatchbase:0.0.1'
 }
 
 apply from: '../gradle_mvn_push.gradle'
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo')) // 插件的输出路径
+            //repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
+            //   authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
+            //}
+
+            pom.groupId = 'android.com.plugin'
+            pom.artifactId = 'robust'
+            pom.version = '0.0.2'
+        }
+    }
+}

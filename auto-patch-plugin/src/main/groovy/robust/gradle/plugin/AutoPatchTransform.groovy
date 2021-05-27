@@ -7,6 +7,7 @@ import com.meituan.robust.autopatch.*
 import com.meituan.robust.utils.JavaUtils
 import com.meituan.robust.utils.SmaliTool
 import javassist.CannotCompileException
+import javassist.ClassClassPath
 import javassist.CtClass
 import javassist.CtMethod
 import javassist.expr.ExprEditor
@@ -14,7 +15,7 @@ import javassist.expr.MethodCall
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
-
+import org.gradle.internal.logging.config.LoggingRouter
 import java.util.zip.Deflater
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -185,6 +186,9 @@ class AutoPatchTransform extends Transform implements Plugin<Project> {
             InlineClassFactory.dealInLineClass(patchPath, Config.newlyAddedClassNameList)
             initSuperMethodInClass(Config.modifiedClassNameList);
             //auto generate all class
+
+            //TODO add 1
+            Config.classPool.insertClassPath(new ClassClassPath(String.class))
             for (String fullClassName : Config.modifiedClassNameList) {
                 CtClass ctClass = Config.classPool.get(fullClassName)
                 CtClass patchClass = PatchesFactory.createPatch(patchPath, ctClass, false, NameManger.getInstance().getPatchName(ctClass.name), Config.patchMethodSignatureSet)
@@ -242,7 +246,9 @@ class AutoPatchTransform extends Transform implements Plugin<Project> {
 
 
     def initSuperMethodInClass(List originClassList) {
-        CtClass modifiedCtClass;
+        CtClass modifiedCtClass
+        //@TODO add 1
+        Config.classPool.insertClassPath(new ClassClassPath(String.class))
         for (String modifiedFullClassName : originClassList) {
             List<CtMethod> invokeSuperMethodList = Config.invokeSuperMethodMap.getOrDefault(modifiedFullClassName, new ArrayList());
             //检查当前修改类中使用到类，并加入mapping信息

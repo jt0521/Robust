@@ -9,16 +9,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.billy.cc.core.component.CC;
+import com.billy.cc.core.component.CCResult;
+import com.billy.cc.core.component.IComponentCallback;
+import com.lib.ut.util.ToastUtils;
 import com.meituan.robust.PatchExecutor;
 import com.meituan.robust.patch.RobustModify;
 import com.meituan.robust.patch.annotaion.Add;
+import com.meituan.robust.patch.annotaion.Modify;
 import com.meituan.sample.patch.PatchManipulateImp;
 
 /**
@@ -65,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump_second_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RobustModify.modify();
-                show();
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
+                ToastUtils.showShort("jump_second_activity");
+
+//                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -76,15 +83,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RobustModify.modify();
-                Toast.makeText(MainActivity.this, "arrived 舒服点搜房电视里发生", Toast.LENGTH_SHORT).show();
+                ToastUtils.showShort("找到问题");
+                toAccount();
             }
         });
 
-    }
-
-    @Add
-    private void show() {
-        Toast.makeText(MainActivity.this, "=========== ", Toast.LENGTH_SHORT).show();
     }
 
     private boolean isGrantSDCardReadPermission() {
@@ -151,5 +154,21 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return true;
+    }
+
+    private void toAccount() {
+        CC.obtainBuilder("login")
+                .setActionName("Login")
+                .build()
+                .callAsyncCallbackOnMainThread(new IComponentCallback() {
+                    @Override
+                    public void onResult(CC cc, CCResult result) {
+                        if (result.isSuccess()) {
+
+                        } else {
+
+                        }
+                    }
+                });
     }
 }
