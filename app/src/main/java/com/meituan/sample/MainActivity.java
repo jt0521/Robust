@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RobustModify.modify();
-                ToastUtils.showShort("找到问题哈哈哈");
+                ToastUtils.showShort("跳转");
                 toAccount();
             }
         });

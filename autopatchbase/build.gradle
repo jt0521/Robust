@@ -5,12 +5,12 @@ apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: uri('../repo')) // 插件的输出路径
-            //repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
-            //   authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
-            //}
+            //repository(url: uri('../repo')) // 插件的输出路径
+            repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
+               authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
+            }
 
-            pom.groupId = 'android.com.plugin'
+            pom.groupId = 'android.com.plugin.hotfix'
             pom.artifactId = 'autopatchbase'
             pom.version = '0.0.1'
         }
