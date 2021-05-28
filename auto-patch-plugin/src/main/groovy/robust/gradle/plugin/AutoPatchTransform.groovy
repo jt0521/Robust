@@ -101,7 +101,8 @@ class AutoPatchTransform extends Transform implements Plugin<Project> {
         JavaUtils.printMap(Config.methodMap)
         cost = (System.currentTimeMillis() - startTime) / 1000
         logger.quiet "autoPatch cost $cost second"
-        throw new RuntimeException("auto patch end successfully")
+        //throw new RuntimeException("auto patch end successfully")
+        logger.quiet "\033[1;33m auto patch end successfully \033[0m"
     }
 
     static def copyJarToRobust() {

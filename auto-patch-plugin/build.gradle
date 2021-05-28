@@ -24,7 +24,7 @@ uploadArchives {
 
             pom.groupId = 'android.com.plugin'
             pom.artifactId = 'autopatch'
-            pom.version = '0.0.4'
+            pom.version = '0.0.5'
         }
     }
 }
