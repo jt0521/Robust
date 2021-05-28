@@ -12,18 +12,8 @@ dependencies {
     implementation 'android.com.plugin:autopatchbase:0.0.1'
 }
 
-apply plugin: 'maven'
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('../repo')) // 插件的输出路径
-            //repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
-            //   authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
-            //}
-
-            pom.groupId = 'android.com.plugin'
-            pom.artifactId = 'autopatch'
-            pom.version = '0.0.5'
-        }
-    }
+try {
+    apply from: '../../Config/maven.gradle'
+} catch (Exception ex1) {
+    println("Error: " + ex1.getLocalizedMessage())
 }
