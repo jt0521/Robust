@@ -1,6 +1,7 @@
-//apply plugin: 'com.android.application'
 ext.mainApp = true //标记为主app module
 apply from: '../cc-settings-2.gradle'
+
+//生成修复包时打开，以下两项互斥
 apply plugin: 'auto-patch-plugin'
 //apply plugin: 'robust'
 
@@ -65,19 +66,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
 
-    implementation 'com.squareup.okhttp:okhttp:2.5.0'
-    implementation 'com.google.code.gson:gson:2.3.1'
-    implementation 'org.javassist:javassist:3.20.0-GA'
-    //implementation project(path: ':patch')
-    implementation 'android.com.plugin:robust:0.0.2'
-
     implementation 'android.com.lib.util:utils:1.0.1'
-//    implementation 'android.com.lib.audio:record:1.0.0'
-//    implementation 'android.com.lib.img:image:1.0.0'
-//    implementation 'android.com.lib.net:network:1.0.0'
 
-//    implementation 'com.github.bumptech.glide:glide:4.12.0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
+    implementation 'com.meituan.robust:robust:0.4.99'
     addComponent  'login'
 }
