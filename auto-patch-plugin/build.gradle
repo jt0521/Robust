@@ -11,7 +11,6 @@ dependencies {
     implementation 'org.javassist:javassist:3.20.0-GA'
     implementation 'android.com.plugin:autopatchbase:0.0.1'
 }
-apply from: '../gradle_mvn_push.gradle'
 
 apply plugin: 'maven'
 uploadArchives {

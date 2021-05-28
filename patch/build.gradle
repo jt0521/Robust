@@ -33,8 +33,6 @@ dependencies {
     implementation 'android.com.plugin:autopatchbase:0.0.1'
 }
 
-apply from: '../gradle_mvn_push.gradle'
-
 apply plugin: 'maven'
 uploadArchives {
     repositories {

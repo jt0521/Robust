@@ -1,5 +1,4 @@
 apply plugin: 'java'
-apply from: '../gradle_mvn_push.gradle'
 sourceCompatibility= JavaVersion.VERSION_1_8
 targetCompatibility= JavaVersion.VERSION_1_8
 apply plugin: 'maven'
