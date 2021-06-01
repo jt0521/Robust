@@ -23,6 +23,7 @@ import com.billy.cc.core.component.CCResult;
 import com.billy.cc.core.component.IComponentCallback;
 import com.lib.ut.util.ToastUtils;
 import com.meituan.robust.PatchExecutor;
+import com.meituan.robust.RobustApkHashUtils;
 import com.meituan.robust.patch.RobustModify;
 import com.meituan.robust.patch.annotaion.Add;
 import com.meituan.robust.patch.annotaion.Modify;
@@ -72,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump_second_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShort("jump_second_activity");
-
+                ToastUtils.showShort("jump_second_activity 测试测试");
+                String robustApkHash = RobustApkHashUtils.readRobustApkHash(MainActivity.this);
+                Log.e("robust", "robustApkHash :" + robustApkHash);
 //                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 //                startActivity(intent);
             }

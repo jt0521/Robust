@@ -5,15 +5,22 @@ buildscript {
         jcenter()
         google()
         maven {url"https://jitpack.io"}
-        maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
+        maven {
+            url = 'http://bin.huwogo.com/artifactory/libs-release-local'
+            credentials {
+                username = 'release'
+                password = 's2UiRCvHrQUbcDH6'
+            }
+        }
+        //maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'com.billy.android:cc-register:1.1.2'
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
 
-        classpath 'android.com.plugin:hotfix:0.0.16'
-        //classpath 'android.com.plugin:autopatch:0.0.5'
+        classpath 'android.com.plugin.hotfix:instrument:0.0.1'
+        classpath 'android.com.plugin.hotfix:patch:0.0.1'
     }
 }
 configurations.all {
@@ -28,8 +35,7 @@ allprojects {
         }
         maven {url"https://jitpack.io"}
         jcenter()
-        maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
-        maven {url uri("D:\\workspaces\\imploded\\Library\\Library-Utils\\repo")}
+        //maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
 
         maven {
             url = 'http://bin.huwogo.com/artifactory/libs-release-local'

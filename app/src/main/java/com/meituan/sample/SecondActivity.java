@@ -14,10 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.meituan.robust.patch.RobustModify;
-import com.meituan.robust.patch.annotaion.Modify;
-import com.meituan.robust.patch.annotaion.Add;
-
 import java.lang.reflect.Field;
 
 public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,7 +25,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_second);
 
         listView = (ListView) findViewById(R.id.listview);
         TextView textView = (TextView) findViewById(R.id.secondtext);
