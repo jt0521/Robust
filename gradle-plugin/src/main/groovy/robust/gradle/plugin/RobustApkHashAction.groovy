@@ -35,7 +35,6 @@ class RobustApkHashAction implements Action<Project> {
                     FileCollection resourceFiles;
                     if (isGradlePlugin320orAbove(project)) {
                         try {
-                            //TODO 此处错误，导致不能签名
                             //gradle 4.6 适配
                             resourceFiles = packageTask.resourceFiles.get()
                             //partFiles.add(resourceFiles.getFiles())
