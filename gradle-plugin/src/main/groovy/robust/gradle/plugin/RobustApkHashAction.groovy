@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils
 import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
+import org.gradle.api.internal.file.DefaultFilePropertyFactory
 
 import java.security.MessageDigest
 import java.util.zip.ZipEntry
@@ -31,23 +32,25 @@ class RobustApkHashAction implements Action<Project> {
 
                 if (isGradlePlugin300orAbove(project)) {
 
-                    //protected FileCollection resourceFiles;
-                    FileCollection resourceFiles
+                    FileCollection resourceFiles;
                     if (isGradlePlugin320orAbove(project)) {
                         try {
                             //TODO 此处错误，导致不能签名
                             //gradle 4.6 适配
                             resourceFiles = packageTask.resourceFiles.get()
-                            partFiles.add(resourceFiles.getFiles())
+                            //partFiles.add(resourceFiles.getFiles())
                         } catch (Exception e) {
                             //gradle 5.4+ & gradle tools 3.5.0+ 适配
-                            Object resFiles = packageTask.resourceFiles
-                            for (File file : resFiles) {
-                                partFiles.add(file)
-                            }
+                            resourceFiles = packageTask.resourceFiles.getAsFileTree()
+                            //for (File file : resFiles) {
+                            //   partFiles.add(file)
+                            //}
                         }
                     } else {
                         resourceFiles = packageTask.resourceFiles
+                    }
+
+                    if (resourceFiles != null) {
                         partFiles.add(resourceFiles.getFiles())
                     }
 
@@ -190,7 +193,6 @@ class RobustApkHashAction implements Action<Project> {
                     }
 
                     String robustHash = computeRobustHash(partFiles)
-
                     if (null != assets) {
                         // Android Gradle Plugin is 2.2.0-beta1 + , assets is able to access
                         createHashFile(assets.absolutePath, Constants.ROBUST_APK_HASH_FILE_NAME, robustHash)
