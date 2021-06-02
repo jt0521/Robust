@@ -75,7 +75,8 @@ class ConvertUtils {
     }
 
     public static boolean shouldBlockConvert(String className) {
-        return "META-INF.versions.9.module-info".equals(className);
+        RobustTransform.logger.quiet "\033[1;33m " + className + " \033[0m"
+        return "META-INF.versions.9.module-info".equals(className) || className.startsWithAny("META-INF.versions.9.kotlin")
     }
 
 }
