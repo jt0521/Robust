@@ -30,7 +30,7 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 dependencies {
-    implementation 'android.com.plugin:autopatchbase:0.0.1'
+    implementation 'android.com.plugin.hotfix:autopatchbase:0.0.1'
 }
 
 apply plugin: 'maven'
