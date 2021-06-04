@@ -37,13 +37,13 @@ apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: uri('../repo')) // 插件的输出路径
-            //repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
-            //   authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
-            //}
+//            repository(url: uri('../repo')) // 插件的输出路径
+            repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
+               authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
+            }
 
-            pom.groupId = 'android.com.plugin'
-            pom.artifactId = 'robust'
+            pom.groupId = 'android.com.plugin.hotfix'
+            pom.artifactId = 'library'
             pom.version = '0.0.2'
         }
     }
