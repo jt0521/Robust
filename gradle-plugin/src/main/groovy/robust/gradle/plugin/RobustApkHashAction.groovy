@@ -211,6 +211,7 @@ class RobustApkHashAction implements Action<Project> {
                 }
             }
         }
+        copyRobustNeedFile(project)
     }
 
 
@@ -338,5 +339,50 @@ class RobustApkHashAction implements Action<Project> {
             }
         }
         return version
+    }
+
+    /**
+     * 拷贝build下robust需要的文件
+     * @param project
+     * @return
+     */
+    def copyRobustNeedFile(Project project) {
+        project.tasks.each { task ->
+            if (task.toString().contains("assemble")) {
+                task.doLast {
+                    project.android.applicationVariants.all { variant ->
+                        // 默认生成apk的文件夹
+                        def srcMappingPath = "${project.getProjectDir().path}/build/outputs/mapping/${variant.buildType.name}/mapping.txt"
+                        File srcMappingFile = new File(srcMappingPath)
+                        if (!srcMappingFile.exists()) {
+                            return
+                        }
+                        def srcRobustPath = "${project.getProjectDir().path}/build/outputs/robust/methodsMap.robust"
+                        File srcRobustFile = new File(srcRobustPath)
+                        if (!srcRobustFile.exists()) {
+                            return
+                        }
+                        def srcApkHash = "${project.getProjectDir().path}/build/outputs/robust/robust.apkhash"
+                        // 定义目标文件夹
+                        def destFolder = new File("${project.getProjectDir().path}/robust")
+                        try {
+                            if (!destFolder.exists()) {
+                                destFolder.mkdir()
+                            }
+                            project.copy {
+                                from "${srcMappingPath}"
+                                into "${destFolder}/"
+                                from "${srcRobustPath}"
+                                into "${destFolder}/"
+                                from "${srcApkHash}"
+                                into "${destFolder}/"
+                            }
+                        } catch (Exception e) {
+                            print e
+                        }
+                    }
+                }
+            }
+        }
     }
 }

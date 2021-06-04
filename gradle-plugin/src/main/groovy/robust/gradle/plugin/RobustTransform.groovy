@@ -98,7 +98,7 @@ class RobustTransform extends Transform implements Plugin<Project> {
 
         if (null != robust.switch.useAsm && "false".equals(String.valueOf(robust.switch.useAsm.text()))) {
             useASM = false;
-        }else {
+        } else {
             //默认使用asm
             useASM = true;
         }
@@ -146,10 +146,10 @@ class RobustTransform extends Transform implements Plugin<Project> {
         outputProvider.deleteAll()
         File jarFile = outputProvider.getContentLocation("main", getOutputTypes(), getScopes(),
                 Format.JAR);
-        if(!jarFile.getParentFile().exists()){
+        if (!jarFile.getParentFile().exists()) {
             jarFile.getParentFile().mkdirs();
         }
-        if(jarFile.exists()){
+        if (jarFile.exists()) {
             jarFile.delete();
         }
 

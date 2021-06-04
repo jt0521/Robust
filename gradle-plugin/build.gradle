@@ -24,7 +24,7 @@ uploadArchives {
 
             pom.groupId = 'android.com.plugin.hotfix'
             pom.artifactId = 'instrument'
-            pom.version = '0.0.1'
+            pom.version = '0.0.2'
         }
     }
 }
