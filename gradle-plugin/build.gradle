@@ -13,18 +13,17 @@ dependencies {
     implementation 'android.com.plugin.hotfix:autopatchbase:0.0.1'
 }
 
-apply plugin: 'maven'
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            //repository(url: uri('../repo')) // 插件的输出路径
-            repository(url: "http://bin.huwogo.com/artifactory/libs-release-local") {
-               authentication(userName: 'release', password: 's2UiRCvHrQUbcDH6')
-            }
+apply plugin: 'com.github.dcendents.android-maven'
 
-            pom.groupId = 'android.com.plugin.hotfix'
-            pom.artifactId = 'instrument'
-            pom.version = '0.0.2'
-        }
-    }
-}
+//apply plugin: 'maven'
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: uri('../repo')) // 插件的输出路径
+//
+//            pom.groupId = 'android.com.plugin.hotfix'
+//            pom.artifactId = 'instrument'
+//            pom.version = '0.0.2'
+//        }
+//    }
+//}

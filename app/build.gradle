@@ -3,7 +3,7 @@ apply from: '../cc-settings-2.gradle'
 
 //生成修复包时打开，以下两项互斥
 //apply plugin: 'auto-patch-plugin'
-apply plugin: 'robust'
+//apply plugin: 'robust'
 
 android {
     compileSdkVersion 30
