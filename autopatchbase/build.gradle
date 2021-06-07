@@ -2,8 +2,8 @@ apply plugin: 'java'
 sourceCompatibility= JavaVersion.VERSION_1_8
 targetCompatibility= JavaVersion.VERSION_1_8
 
-//apply plugin: 'com.github.dcendents.android-maven'
-//group = 'com.github.jt0521'
+apply plugin: 'com.github.dcendents.android-maven'
+group = 'com.github.jt0521'
 //apply plugin: 'maven'
 //uploadArchives {
 //    repositories {
