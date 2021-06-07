@@ -38,13 +38,13 @@ allprojects {
         jcenter()
         //maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
 
-        maven {
-            url = 'http://bin.huwogo.com/artifactory/libs-release-local'
-            credentials {
-                username = 'release'
-                password = 's2UiRCvHrQUbcDH6'
-            }
-        }
+//        maven {
+//            url = 'http://bin.huwogo.com/artifactory/libs-release-local'
+//            credentials {
+//                username = 'release'
+//                password = 's2UiRCvHrQUbcDH6'
+//            }
+//        }
     }
     tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
 }
