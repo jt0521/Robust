@@ -3,7 +3,7 @@ apply from: '../cc-settings-2.gradle'
 
 //生成修复包时打开，以下两项互斥
 //apply plugin: 'auto-patch-plugin'
-//apply plugin: 'robust'
+apply plugin: 'robust'
 
 android {
     compileSdkVersion 30
@@ -68,6 +68,6 @@ dependencies {
 
     implementation 'android.com.lib.util:utils:1.0.1'
 
-    implementation 'com.meituan.robust:robust:0.4.99'
+    implementation 'com.github.jt0521.Robust:robust:0.4.102'
     addComponent  'login'
 }

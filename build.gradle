@@ -20,8 +20,8 @@ buildscript {
         classpath 'com.billy.android:cc-register:1.1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
-        //classpath 'android.com.plugin.hotfix:instrument:0.0.1'
-        //classpath 'android.com.plugin.hotfix:patch:0.0.1'
+        classpath 'com.github.jt0521.Robust:gradle-plugin:0.4.102'
+        classpath 'com.github.jt0521.Robust:auto-patch-plugin:0.4.102'
     }
 }
 configurations.all {
@@ -38,13 +38,6 @@ allprojects {
         jcenter()
         //maven {url uri(new File(getRootDir(), "repo").getAbsolutePath())}
 
-//        maven {
-//            url = 'http://bin.huwogo.com/artifactory/libs-release-local'
-//            credentials {
-//                username = 'release'
-//                password = 's2UiRCvHrQUbcDH6'
-//            }
-//        }
     }
     tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
 }
