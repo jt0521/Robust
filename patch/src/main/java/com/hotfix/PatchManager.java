@@ -36,6 +36,11 @@ public class PatchManager {
      * 二级目录，即补丁文件夹
      */
     public static final String PATCH_FOLDER = "robust";
+    public static boolean mDebug;
+
+    public static void setDebug(boolean debug) {
+        mDebug = debug;
+    }
 
     //RobustApkHashUtils.readRobustApkHash(context)
     public static void loadPatch(Context context) {
@@ -90,7 +95,8 @@ public class PatchManager {
         if (!(context instanceof Application)) {
             context = context.getApplicationContext();
         }
-        mFolder = context.getExternalFilesDir(null).getAbsolutePath() + File.separator + PATCH_FOLDER;
+        mFolder = mDebug ? context.getExternalFilesDir(null).getAbsolutePath()
+                + File.separator + PATCH_FOLDER : context.getFilesDir().getAbsolutePath() + File.separator + PATCH_FOLDER;
         File folderFile = new File(mFolder);
         if (!folderFile.exists()) {
             folderFile.mkdirs();
