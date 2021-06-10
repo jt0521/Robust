@@ -42,7 +42,7 @@ class RobustTransform extends Transform implements Plugin<Project> {
     @Override
     void apply(Project target) {
         project = target
-        Debug = Util.getLocalProperties(project.getRootDir(), Util.KEY_DEBUG)
+        Debug = Util.getLocalProperties(project.getRootDir().getAbsolutePath(), Util.KEY_DEBUG)
         robust = new XmlSlurper().parse(new File("${project.projectDir}/${Constants.ROBUST_XML}"))
         logger = project.logger
         initConfig()

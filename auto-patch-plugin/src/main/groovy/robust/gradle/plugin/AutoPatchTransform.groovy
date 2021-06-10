@@ -42,7 +42,7 @@ class AutoPatchTransform extends Transform implements Plugin<Project> {
     @Override
     void apply(Project target) {
         this.project = target
-        Debug = Util.getLocalProperties(target.getRootDir(), Util.KEY_DEBUG)
+        Debug = Util.getLocalProperties(target.getRootDir().getAbsolutePath(), Util.KEY_DEBUG)
         logger = project.logger
         initConfig();
         project.android.registerTransform(this)
