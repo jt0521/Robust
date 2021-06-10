@@ -22,7 +22,6 @@ import javassist.CtField;
 import javassist.CtMethod;
 import javassist.CtNewConstructor;
 import javassist.NotFoundException;
-import robust.gradle.plugin.AutoPatchTransform;
 
 import static com.meituan.robust.Constants.ORIGINCLASS;
 
