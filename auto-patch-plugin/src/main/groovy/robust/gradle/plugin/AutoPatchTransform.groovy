@@ -109,7 +109,7 @@ class AutoPatchTransform extends Transform implements Plugin<Project> {
         if (Debug) {
             logger.quiet '================method singure to methodid is printed below================'
         }
-        JavaUtils.printMap(Config.methodMap)
+        JavaUtils.printMap(Debug, Config.methodMap)
         cost = (System.currentTimeMillis() - startTime) / 1000
         if (Debug) {
             logger.quiet "autoPatch cost $cost second"

@@ -263,26 +263,22 @@ public class JavaUtils {
         return false;
     }
 
-    public static void printMap(Map<String, ?> memberMappingInfo) {
-        if (memberMappingInfo == null) {
+    public static void printMap(boolean debug, Map<String, ?> memberMappingInfo) {
+        if (memberMappingInfo == null || !debug) {
             return;
         }
-        if (AutoPatchTransform.Debug) {
-            for (String key : memberMappingInfo.keySet())
-                System.out.println("key is   " + key + "  value is    " + memberMappingInfo.get(key));
-            System.out.println("");
-        }
+        for (String key : memberMappingInfo.keySet())
+            System.out.println("key is   " + key + "  value is    " + memberMappingInfo.get(key));
+        System.out.println("");
     }
 
     public static void printList(List<String> list) {
         if (list == null) {
             return;
         }
-        if (AutoPatchTransform.Debug) {
-            for (String key : list)
-                System.out.println("key is   " + key);
-            System.out.println("");
-        }
+        for (String key : list)
+            System.out.println("key is   " + key);
+        System.out.println("");
     }
 
 

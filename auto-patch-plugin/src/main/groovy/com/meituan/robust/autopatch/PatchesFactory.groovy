@@ -8,6 +8,7 @@ import javassist.bytecode.ClassFile
 import javassist.bytecode.LocalVariableAttribute
 import javassist.bytecode.MethodInfo
 import javassist.expr.*
+import robust.gradle.plugin.AutoPatchTransform
 
 import static com.meituan.robust.utils.JavaUtils.printList
 
@@ -53,7 +54,9 @@ class PatchesFactory {
 
         CtClass temPatchClass = cloneClass(modifiedClass, patchName, methodNoNeedPatchList);
         if (temPatchClass.getDeclaredMethods().length == 0) {
-            printList(patchMethodSignureSet.toList());
+            if (AutoPatchTransform.Debug) {
+                printList(patchMethodSignureSet.toList());
+            }
             throw new RuntimeException("all methods in patch class are deteted,cannot find patchMethod in class " + temPatchClass.getName());
         }
 
@@ -204,8 +207,7 @@ class PatchesFactory {
     /**
      * @param sourceClass
      * @param targetClassName
-     * @return targetClass
-     * @description targetClassis created by copy methods ,not by name
+     * @return targetClass* @description targetClassis created by copy methods ,not by name
      */
     private
     static CtClass cloneClassWithoutFields(CtClass sourceClass, String patchName, List<CtMethod> exceptMethodList) throws NotFoundException, CannotCompileException {
