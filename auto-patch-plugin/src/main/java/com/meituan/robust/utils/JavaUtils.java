@@ -22,6 +22,7 @@ import javassist.CtField;
 import javassist.CtMethod;
 import javassist.CtNewConstructor;
 import javassist.NotFoundException;
+import robust.gradle.plugin.AutoPatchTransform;
 
 import static com.meituan.robust.Constants.ORIGINCLASS;
 
@@ -266,18 +267,22 @@ public class JavaUtils {
         if (memberMappingInfo == null) {
             return;
         }
-        for (String key : memberMappingInfo.keySet())
-            System.out.println("key is   " + key + "  value is    " + memberMappingInfo.get(key));
-        System.out.println("");
+        if (AutoPatchTransform.Debug) {
+            for (String key : memberMappingInfo.keySet())
+                System.out.println("key is   " + key + "  value is    " + memberMappingInfo.get(key));
+            System.out.println("");
+        }
     }
 
     public static void printList(List<String> list) {
         if (list == null) {
             return;
         }
-        for (String key : list)
-            System.out.println("key is   " + key);
-        System.out.println("");
+        if (AutoPatchTransform.Debug) {
+            for (String key : list)
+                System.out.println("key is   " + key);
+            System.out.println("");
+        }
     }
 
 

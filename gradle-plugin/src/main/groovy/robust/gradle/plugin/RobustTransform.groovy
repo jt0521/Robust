@@ -3,6 +3,7 @@ package robust.gradle.plugin
 import com.android.build.api.transform.*
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.meituan.robust.Constants
+import com.meituan.robust.utils.Util
 import javassist.ClassPool
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -11,6 +12,7 @@ import robust.gradle.plugin.asm.AsmInsertImpl
 import robust.gradle.plugin.javaassist.JavaAssistInsertImpl
 
 import java.util.zip.GZIPOutputStream
+
 /**
  * Created by mivanzhang on 16/11/3.
  *
@@ -19,6 +21,7 @@ import java.util.zip.GZIPOutputStream
  */
 
 class RobustTransform extends Transform implements Plugin<Project> {
+    public static boolean Debug = false;
     Project project
     static Logger logger
     private static List<String> hotfixPackageList = new ArrayList<>();
@@ -39,6 +42,7 @@ class RobustTransform extends Transform implements Plugin<Project> {
     @Override
     void apply(Project target) {
         project = target
+        Debug = Util.getLocalProperties(project.getRootDir(), Util.KEY_DEBUG)
         robust = new XmlSlurper().parse(new File("${project.projectDir}/${Constants.ROBUST_XML}"))
         logger = project.logger
         initConfig()
@@ -48,7 +52,9 @@ class RobustTransform extends Transform implements Plugin<Project> {
             def isDebugTask = false;
             for (int index = 0; index < taskNames.size(); ++index) {
                 def taskName = taskNames[index]
-                logger.debug "input start parameter task is ${taskName}"
+                if (Debug) {
+                    logger.debug "input start parameter task is ${taskName}"
+                }
                 //FIXME: assembleRelease下屏蔽Prepare，这里因为还没有执行Task，没法直接通过当前的BuildType来判断，所以直接分析当前的startParameter中的taskname，
                 //另外这里有一个小坑task的名字不能是缩写必须是全称 例如assembleDebug不能是任何形式的缩写输入
                 if (taskName.endsWith("Debug") && taskName.contains("Debug")) {
@@ -60,7 +66,9 @@ class RobustTransform extends Transform implements Plugin<Project> {
             if (!isDebugTask) {
                 project.android.registerTransform(this)
                 project.afterEvaluate(new RobustApkHashAction())
-                logger.quiet "Register robust transform successful !!!"
+                if (Debug) {
+                    logger.quiet "Register robust transform successful !!!"
+                }
             }
             if (null != robust.switch.turnOnRobust && !"true".equals(String.valueOf(robust.switch.turnOnRobust))) {
                 return;
@@ -141,7 +149,9 @@ class RobustTransform extends Transform implements Plugin<Project> {
 
     @Override
     void transform(Context context, Collection<TransformInput> inputs, Collection<TransformInput> referencedInputs, TransformOutputProvider outputProvider, boolean isIncremental) throws IOException, TransformException, InterruptedException {
-        logger.quiet '================robust start================'
+        if (Debug) {
+            logger.quiet '================robust start================'
+        }
         def startTime = System.currentTimeMillis()
         outputProvider.deleteAll()
         File jarFile = outputProvider.getContentLocation("main", getOutputTypes(), getScopes(),
@@ -169,16 +179,24 @@ class RobustTransform extends Transform implements Plugin<Project> {
         insertcodeStrategy.insertCode(box, jarFile);
         writeMap2File(insertcodeStrategy.methodMap, Constants.METHOD_MAP_OUT_PATH)
 
-        logger.quiet "===robust print id start==="
+        if (Debug) {
+            logger.quiet "===robust print id start==="
+        }
         for (String method : insertcodeStrategy.methodMap.keySet()) {
             int id = insertcodeStrategy.methodMap.get(method);
-            System.out.println("key is   " + method + "  value is    " + id);
+            if (Debug) {
+                System.out.println("key is   " + method + "  value is    " + id);
+            }
         }
-        logger.quiet "===robust print id end==="
+        if (Debug) {
+            logger.quiet "===robust print id end==="
+        }
 
         cost = (System.currentTimeMillis() - startTime) / 1000
-        logger.quiet "robust cost $cost second"
-        logger.quiet '================robust   end================'
+        if (Debug) {
+            logger.quiet "robust cost $cost second"
+            logger.quiet '================robust   end================'
+        }
     }
 
     private void writeMap2File(Map map, String path) {
