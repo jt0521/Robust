@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump_second_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShort("jump_second_activity 测试测试");
                 String robustApkHash = RobustApkHashUtils.readRobustApkHash(MainActivity.this);
                 Log.e("robust", "robustApkHash :" + robustApkHash);
 //                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShort("跳转");
                 toAccount();
             }
         });
