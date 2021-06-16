@@ -18,6 +18,11 @@ Robust is an Android HotFix solution with high compatibility and high stability.
  * Gradle 2.10+ , include 3.0
  * Java 1.7 +
  
+  * Gradle 4.+ 级以上版本，替换为以下地址
+   implementation 'com.github.jt0521.Robust:robust:0.4.102'
+   classpath 'com.github.jt0521.Robust:gradle-plugin:0.4.104'
+   classpath 'com.github.jt0521.Robust:auto-patch-plugin:0.4.104'
+ 
 # Usage
 
 1. Add below codes in the module's build.gradle.
@@ -174,3 +179,7 @@ AutoPatch will generate patch for Robust automatically. You just need to fellow 
     limitations under the License.
 
 
+
+local.properties配置
+robust_debug : Boolean 日志输出控制
+robust_auto_save_build_file : Boolean 非release环境控制是否保存mapping文件

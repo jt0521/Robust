@@ -16,6 +16,11 @@
  * Mac Linux Windows
  * Gradle 2.10+ , include 3.0
  * Java 1.7 +
+ 
+ * Gradle 4.+ 级以上版本，替换为以下地址
+  implementation 'com.github.jt0521.Robust:robust:0.4.102'
+  classpath 'com.github.jt0521.Robust:gradle-plugin:0.4.104'
+  classpath 'com.github.jt0521.Robust:auto-patch-plugin:0.4.104'
 
 # 使用方法
 重要： 打包时可能优化掉不使用的类，热修复会找不到此种不使用的类
