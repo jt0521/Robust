@@ -1,6 +1,7 @@
 package robust.gradle.plugin
 
 import com.meituan.robust.Constants
+import com.meituan.robust.utils.Util
 import org.apache.commons.io.IOUtils
 import org.gradle.api.Action
 import org.gradle.api.Project
@@ -347,8 +348,12 @@ class RobustApkHashAction implements Action<Project> {
      * @return
      */
     def copyRobustNeedFile(Project project) {
+        boolean autoSave = Util.getLocalProperties(project.getRootDir(), Util.KEY_AUTO_SAVE_BUILD_FILE)
         project.tasks.each { task ->
-            if (task.toString().contains("assemble")) {
+            boolean isAssemble = task.toString().contains("assemble")
+            boolean isRelease = task.toString().endsWith("Release")
+            autoSave = isRelease ? true : autoSave
+            if (isAssemble && autoSave) {
                 task.doLast {
                     project.android.applicationVariants.all { variant ->
                         // 默认生成apk的文件夹

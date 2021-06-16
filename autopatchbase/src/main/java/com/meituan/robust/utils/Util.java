@@ -19,7 +19,14 @@ import java.util.Properties;
  * 修改日期
  */
 public class Util {
+    /**
+     * 插件日志输出控制
+     */
     public static final String KEY_DEBUG = "robust_debug";
+    /**
+     * 是否自动保存需要的build文件（非release编译有效）
+     */
+    public static final String KEY_AUTO_SAVE_BUILD_FILE = "robust_auto_save_build_file";
 
     public static String getLocalPropertiesStr(String dir, String key) {
         if (dir == null || dir == "") {
