@@ -348,7 +348,7 @@ class RobustApkHashAction implements Action<Project> {
      * @return
      */
     def copyRobustNeedFile(Project project) {
-        boolean autoSave = Util.getLocalProperties(project.getRootDir(), Util.KEY_AUTO_SAVE_BUILD_FILE)
+        boolean autoSave = Util.getLocalProperties(project.getRootDir().getAbsolutePath(), Util.KEY_AUTO_SAVE_BUILD_FILE)
         project.tasks.each { task ->
             boolean isAssemble = task.toString().contains("assemble")
             boolean isRelease = task.toString().endsWith("Release")
